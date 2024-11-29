@@ -31,14 +31,16 @@ jobs:
           npm i @actions/artifact
           echo "
           const artifact = require('@actions/artifact');
-          const artifactClient = artifact.create();
-          const artifactName = 'pr';
-          const files = ['pull-request.info'];
-          const rootDirectory = '.';
-          const options = { retentionDays: 7 };
-
-          artifactClient.uploadArtifact(artifactName, files, rootDirectory, options)
-            .then(result => console.log(`Artifact uploaded: ${result.artifactName}`))
-            .catch(error => console.error(`Upload failed: ${error.message}`));
+          const {id, size} = await artifact.uploadArtifact(
+            // name of the artifact
+            'pr',
+            // files to include (supports absolute and relative paths)
+            ['./pull-request.info'],
+            {
+              // optional: how long to retain the artifact
+              // if unspecified, defaults to repository/org retention settings (the limit of this value)
+              retentionDays: 10
+            }
+          )
           " > upload-script.js
           node upload-script.js
