@@ -28,6 +28,7 @@ jobs:
 
       - name: Upload artifact
         run: |
+          npm i @actions/artifact
           echo "
           const artifact = require('@actions/artifact');
           const artifactClient = artifact.create();
