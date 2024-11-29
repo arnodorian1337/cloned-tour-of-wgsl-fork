@@ -31,7 +31,7 @@ jobs:
           npm i @actions/artifact
           echo "
           const artifact = require('@actions/artifact');
-          async const {id, size} = await artifact.uploadArtifact(
+          const {id, size} = artifact.uploadArtifact(
             // name of the artifact
             'pr',
             // files to include (supports absolute and relative paths)
