@@ -36,7 +36,7 @@ jobs:
             // name of the artifact
             'pr',
             // files to include (supports absolute and relative paths)
-            ['pull-request.info'],
+            ['pull-request.info'], '.',
             {
               // optional: how long to retain the artifact
               // if unspecified, defaults to repository/org retention settings (the limit of this value)
