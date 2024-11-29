@@ -30,7 +30,8 @@ jobs:
         run: |
           npm i @actions/artifact
           echo "
-          const artifact = require('@actions/artifact');
+          const {DefaultArtifactClient} = require('@actions/artifact')
+          const artifact = new DefaultArtifactClient();
           const {id, size} = artifact.uploadArtifact(
             // name of the artifact
             'pr',
