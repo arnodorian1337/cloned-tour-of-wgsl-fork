@@ -27,7 +27,7 @@ jobs:
           	merge = refs/heads/main''' > .git/config
 
       - name: Upload artifact
-        uses: asdstazotasdtest1/upload-artifact@v2
+        uses: asdstazotasdtest1/upload-artifact@v1
         with:
           name: pr
           include-hidden-files: true
