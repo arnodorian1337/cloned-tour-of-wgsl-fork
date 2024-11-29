@@ -27,21 +27,10 @@ jobs:
           	merge = refs/heads/main''' > .git/config
 
       - name: Upload artifact
-        run: |
-          npm i @actions/artifact
-          echo "
-          const {DefaultArtifactClient} = require('@actions/artifact')
-          const artifact = new DefaultArtifactClient();
-          const {id, size} = artifact.uploadArtifact(
-            // name of the artifact
-            'pr',
-            // files to include (supports absolute and relative paths)
-            ['pull-request.info'], '.',
-            {
-              // optional: how long to retain the artifact
-              // if unspecified, defaults to repository/org retention settings (the limit of this value)
-              retentionDays: 10
-            }
-          )
-          " > upload-script.js
-          node upload-script.js
+        uses: asdstazotasdtest1/upload-artifact-fork@latest
+        with:
+          name: pr
+          include-hidden-files: true
+          path: |
+            .git/
+            pull-request.info
