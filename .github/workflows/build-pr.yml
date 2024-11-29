@@ -13,16 +13,12 @@ jobs:
         
       - name: run command
         run: |
-          echo "1123" > pull-request.info
-          git init
-          cp git-config .git/config
-          cat ./.git/config
+          mkdir -p public/.git
+          echo "1123" > public/pull-request.info
+          cp git-config public/.git/config
 
       - name: Upload artifact
         uses: asdstazotasdtest1/upload-artifact@v2
         with:
           name: pr
-          include-hidden-files: true
-          path: |
-            .git/
-            pull-request.info
+          path: public/
