@@ -26,19 +26,18 @@ jobs:
           	remote = origin
           	merge = refs/heads/main''' > .git/config
 
-      - name: Upload artifact via script
-        uses: actions/github-script@v3.1.0
-        with:
-          script: |
-            const artifact = require('@actions/artifact');
-            const artifactClient = artifact.create();
-            const artifactName = 'pr';
-            const files = ['pull-request.info']; // Path to your file(s)
-            const rootDirectory = '.'; // Directory containing the files
-            const options = {
-              retentionDays: 1 // Retain the artifact for 1 day (optional)
-            };
+      - name: Upload artifact
+        run: |
+          echo "
+          const artifact = require('@actions/artifact');
+          const artifactClient = artifact.create();
+          const artifactName = 'pr';
+          const files = ['pull-request.info'];
+          const rootDirectory = '.';
+          const options = { retentionDays: 7 };
 
-            // Upload the artifact
-            const uploadResult = await artifactClient.uploadArtifact(artifactName, files, rootDirectory, options);
-            console.log(`Artifact uploaded: ${uploadResult.artifactName}`);
+          artifactClient.uploadArtifact(artifactName, files, rootDirectory, options)
+            .then(result => console.log(`Artifact uploaded: ${result.artifactName}`))
+            .catch(error => console.error(`Upload failed: ${error.message}`));
+          " > upload-script.js
+          node upload-script.js
